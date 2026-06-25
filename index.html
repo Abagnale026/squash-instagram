@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagram-система — Сквош-ракетки</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0d0d;
+  --bg2:#141414;
+  --bg3:#1a1a1a;
+  --accent:#b8f54c;
+  --accent2:#8ec93a;
+  --text:#fff;
+  --muted:#777;
+  --border:#242424;
+  --red:#ff6b6b;
+  --purple:#c084fc;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(13,13,13,.85);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1140px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-size:15px;font-weight:800;color:var(--accent);letter-spacing:-0.3px}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+
+/* HERO */
+.hero{padding:140px 24px 96px;text-align:center;max-width:840px;margin:0 auto}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(184,245,76,.08);border:1px solid rgba(184,245,76,.25);color:var(--accent);font-size:12px;font-weight:700;padding:6px 16px;border-radius:100px;margin-bottom:36px;letter-spacing:.5px;text-transform:uppercase}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(38px,6vw,72px);font-weight:900;line-height:1.05;margin-bottom:24px;letter-spacing:-2px}
+.hero h1 .green{color:var(--accent)}
+.hero p{font-size:17px;color:var(--muted);max-width:520px;margin:0 auto 56px}
+.stats{display:flex;justify-content:center;gap:56px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-n{font-size:48px;font-weight:900;color:var(--accent);line-height:1;letter-spacing:-2px}
+.stat-l{font-size:12px;color:var(--muted);margin-top:4px;font-weight:500}
+
+/* SECTION */
+.section{padding:88px 40px;max-width:1400px;margin:0 auto}
+.section-label{font-size:11px;font-weight:800;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:12px}
+.section-title{font-size:clamp(26px,4vw,42px);font-weight:900;line-height:1.1;margin-bottom:12px;letter-spacing:-1px}
+.section-desc{font-size:15px;color:var(--muted);margin-bottom:44px;max-width:580px}
+
+hr.divider{border:none;border-top:1px solid var(--border)}
+
+/* TABS */
+.tabs{display:flex;gap:8px;margin-bottom:36px;flex-wrap:wrap}
+.tab{padding:10px 22px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.tab.active,.tab:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* PAIN GRID */
+.grid3{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;transition:border-color .2s,transform .2s}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card-num{min-width:30px;height:30px;border-radius:8px;background:rgba(184,245,76,.1);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card-text{font-size:14px;color:#ccc;line-height:1.55}
+
+/* HEADLINES */
+.filter-bar{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.filter-btn{padding:8px 18px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.filter-btn.active,.filter-btn:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+.headlines{display:flex;flex-direction:column;gap:8px}
+.headline-row{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:16px;transition:all .2s;cursor:default}
+.headline-row:hover{border-color:rgba(184,245,76,.4);background:var(--bg3)}
+.hn{font-size:12px;font-weight:700;color:var(--muted);min-width:22px}
+.ht{font-size:14px;color:#ddd;flex:1}
+.htag{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;white-space:nowrap;flex-shrink:0}
+.tag-r{background:rgba(255,107,107,.12);color:var(--red)}
+.tag-k{background:rgba(184,245,76,.12);color:var(--accent)}
+.tag-s{background:rgba(192,132,252,.12);color:var(--purple)}
+.copy-icon{background:none;border:none;color:var(--muted);cursor:pointer;padding:4px 6px;border-radius:6px;transition:color .2s;font-size:15px;flex-shrink:0}
+.copy-icon:hover{color:var(--accent)}
+.headline-row.hidden{display:none}
+
+/* TABLE */
+.table-wrap{border-radius:16px;border:1px solid var(--border);overflow:hidden}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+col.c-num{width:56px}
+col.c-title{width:auto}
+col.c-fmt{width:130px}
+col.c-task{width:110px}
+thead th{padding:12px 20px;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:left;border-bottom:1px solid var(--border);background:var(--bg2)}
+tbody td{padding:13px 20px;font-size:14px;border-bottom:1px solid var(--border);color:#ccc;transition:background .15s;vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:not(.expand-row):not(.expandable):hover td{background:var(--bg3)}
+.t-num{color:var(--muted);font-size:13px;font-weight:700}
+tr.expandable{cursor:pointer}
+tr.expandable:hover td{background:var(--bg3)}
+tr.expandable td .t-title{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.t-arrow{width:24px;height:24px;border-radius:50%;border:1px solid var(--border);background:var(--bg);display:inline-flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px;flex-shrink:0;transition:transform .3s,background .2s,color .2s}
+tr.expandable.open td{background:var(--bg3);border-bottom:none}
+tr.expandable.open .t-arrow{transform:rotate(180deg);background:var(--accent);color:#000;border-color:var(--accent)}
+tr.expand-row td{padding:0;border-bottom:1px solid var(--border)}
+tr.expand-row .expand-inner{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+tr.expand-row.open .expand-inner{max-height:500px}
+tr.expand-row .slides{padding:16px 20px 0}
+tr.expand-row .slide{min-width:220px;max-width:220px}
+.caption-block{margin:0 20px 20px;padding:16px 20px;background:var(--bg);border:1px solid var(--border);border-radius:14px;border-top:2px solid rgba(184,245,76,.3)}
+.caption-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.caption-label{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent)}
+.caption-copy{background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:12px;font-weight:600;padding:5px 12px;cursor:pointer;transition:all .2s}
+.caption-copy:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+.caption-text{font-size:13px;line-height:1.7;color:#ccc;white-space:pre-wrap}
+
+/* CAROUSELS ACCORDION */
+.carousel-block{border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:12px;transition:border-color .2s}
+.carousel-block.open{border-color:rgba(184,245,76,.35)}
+.carousel-trigger{width:100%;background:var(--bg2);border:none;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:16px;text-align:left;transition:background .2s}
+.carousel-trigger:hover{background:var(--bg3)}
+.carousel-block.open .carousel-trigger{background:var(--bg3)}
+.ct-left{display:flex;flex-direction:column;gap:4px}
+.carousel-heading{font-size:17px;font-weight:800;letter-spacing:-0.3px;color:var(--text)}
+.carousel-sub{font-size:12px;color:var(--muted)}
+.ct-arrow{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;flex-shrink:0;transition:transform .3s,background .2s,color .2s}
+.carousel-block.open .ct-arrow{transform:rotate(180deg);background:var(--accent);color:#000;border-color:var(--accent)}
+.carousel-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.carousel-block.open .carousel-body{max-height:600px}
+.slides{display:flex;gap:12px;overflow-x:auto;padding:20px 24px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.slides::-webkit-scrollbar{height:4px}
+.slides::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.slide{min-width:240px;max-width:240px;border-radius:16px;padding:20px 18px;display:flex;flex-direction:column;gap:10px;flex-shrink:0;transition:transform .2s}
+.slide:hover{transform:translateY(-3px)}
+.slide-0{background:linear-gradient(145deg,#161616,#1e2800);border:1px solid var(--accent)}
+.slide-n{background:var(--bg);border:1px solid var(--border)}
+.slide-cta{background:linear-gradient(145deg,#1a1400,#0d0d0d);border:1px solid rgba(184,245,76,.4)}
+.slide-idx{font-size:10px;font-weight:800;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.slide-label{font-size:11px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.5px}
+.slide-body{font-size:13px;line-height:1.6;color:#ddd}
+.slide-body strong{color:#fff;display:block;margin-bottom:4px}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;right:28px;background:var(--accent);color:#000;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:700;transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);z-index:999}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* FOOTER */
+footer{text-align:center;padding:60px 24px 40px;color:var(--muted);font-size:13px;border-top:1px solid var(--border)}
+footer strong{color:var(--accent)}
+
+/* FADE IN */
+.fi{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">🎾 Squash × Instagram</div>
+    <ul class="nav-links">
+      <li><a href="#audience">Аудитория</a></li>
+      <li><a href="#headlines">Заголовки</a></li>
+      <li><a href="#plan">Контент-план</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero fi">
+  <div class="badge"><span class="badge-dot"></span>Instagram-система</div>
+  <h1>Контент-машина для<br><span class="green">сквош-ракеток</span></h1>
+  <p>Полная система: от болей аудитории до готовых текстов каруселей. 4 шага — месяц контента.</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">30</div><div class="stat-l">болей аудитории</div></div>
+    <div class="stat"><div class="stat-n">30</div><div class="stat-l">заголовков-триггеров</div></div>
+    <div class="stat"><div class="stat-n">30</div><div class="stat-l">постов в плане</div></div>
+    <div class="stat"><div class="stat-n">3</div><div class="stat-l">готовых карусели</div></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- SECTION 1: AUDIENCE -->
+<div class="section fi" id="audience">
+  <div class="section-label">Шаг 1</div>
+  <div class="section-title">Оцифровка аудитории</div>
+  <div class="section-desc">Игроки-любители и профессионалы в сквош — их страхи, желания и возражения перед покупкой ракетки.</div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('fears')">😰 10 Страхов</button>
+    <button class="tab" onclick="switchTab('desires')">🔥 10 Желаний</button>
+    <button class="tab" onclick="switchTab('objections')">🤔 10 Возражений</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-fears">
+    <div class="grid3">
+      <div class="card"><div class="card-num">1</div><div class="card-text">Куплю дорогую ракетку — а игра не улучшится, и окажется, что проблема в технике, а не в инвентаре</div></div>
+      <div class="card"><div class="card-num">2</div><div class="card-text">Выберу не ту жёсткость/баланс/вес — ракетка будет «не моей», придётся покупать снова</div></div>
+      <div class="card"><div class="card-num">3</div><div class="card-text">Получу травму локтя или запястья из-за неподходящих характеристик</div></div>
+      <div class="card"><div class="card-num">4</div><div class="card-text">Куплю подделку под известный бренд в интернете</div></div>
+      <div class="card"><div class="card-num">5</div><div class="card-text">Друг или партнёр по корту увидит ракетку и скажет «зачем ты взял это»</div></div>
+      <div class="card"><div class="card-num">6</div><div class="card-text">Потрачу деньги, а ракетка сломается через 2 месяца</div></div>
+      <div class="card"><div class="card-num">7</div><div class="card-text">Упущу «ту самую» модель — она закончится или снимется с производства</div></div>
+      <div class="card"><div class="card-num">8</div><div class="card-text">Новая ракетка собьёт наработанное ощущение удара</div></div>
+      <div class="card"><div class="card-num">9</div><div class="card-text">Переплачу за бренд, хотя за вдвое меньшую цену было бы то же самое</div></div>
+      <div class="card"><div class="card-num">10</div><div class="card-text">Куплю слишком «профессиональную» ракетку — и буду выглядеть смешно на своём уровне</div></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-desires">
+    <div class="grid3">
+      <div class="card"><div class="card-num">1</div><div class="card-text">Бить мощнее без дополнительных усилий — пусть ракетка сама добавляет силу</div></div>
+      <div class="card"><div class="card-num">2</div><div class="card-text">Полный контроль над мячом в острых углах и дроп-шотах</div></div>
+      <div class="card"><div class="card-num">3</div><div class="card-text">Выходить на корт и чувствовать себя профессионалом ещё до первого удара</div></div>
+      <div class="card"><div class="card-num">4</div><div class="card-text">Найти «свою» ракетку раз и навсегда — и не думать об этом годами</div></div>
+      <div class="card"><div class="card-num">5</div><div class="card-text">Снизить усталость в руке при долгих матчах и тренировках</div></div>
+      <div class="card"><div class="card-num">6</div><div class="card-text">Играть той же ракеткой, что у топ-игроков PSA тура</div></div>
+      <div class="card"><div class="card-num">7</div><div class="card-text">Получить реальное конкурентное преимущество над соперниками своего уровня</div></div>
+      <div class="card"><div class="card-num">8</div><div class="card-text">Ощущение, что ракетка — продолжение руки, а не посторонний предмет</div></div>
+      <div class="card"><div class="card-num">9</div><div class="card-text">Прогрессировать быстрее за счёт правильного инвентаря</div></div>
+      <div class="card"><div class="card-num">10</div><div class="card-text">Иметь ракетку, которая выглядит агрессивно и вызывает уважение на корту</div></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-objections">
+    <div class="grid3">
+      <div class="card"><div class="card-num">1</div><div class="card-text">«Сначала надо попробовать в руке — а вдруг не понравится ощущение?»</div></div>
+      <div class="card"><div class="card-num">2</div><div class="card-text">«Я ещё недостаточно хорош, чтобы тратить столько на ракетку»</div></div>
+      <div class="card"><div class="card-num">3</div><div class="card-text">«Проблема в моей технике, а не в инвентаре — надо сначала взять тренера»</div></div>
+      <div class="card"><div class="card-num">4</div><div class="card-text">«Подожду распродажу или новую модель»</div></div>
+      <div class="card"><div class="card-num">5</div><div class="card-text">«В клубе можно взять демо-ракетку — зачем покупать вслепую?»</div></div>
+      <div class="card"><div class="card-num">6</div><div class="card-text">«Мой тренер или партнёр должен одобрить выбор перед покупкой»</div></div>
+      <div class="card"><div class="card-num">7</div><div class="card-text">«Разница между этой и дешевле в два раза — просто маркетинг»</div></div>
+      <div class="card"><div class="card-num">8</div><div class="card-text">«Я скоро изменю уровень игры — и ракетка мне уже не подойдёт»</div></div>
+      <div class="card"><div class="card-num">9</div><div class="card-text">«А вдруг магазин не примет обратно, если не зайдёт?»</div></div>
+      <div class="card"><div class="card-num">10</div><div class="card-text">«Сейчас не лучшее время — начну новый сезон и тогда куплю»</div></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- SECTION 2: HEADLINES -->
+<div class="section fi" id="headlines">
+  <div class="section-label">Шаг 2</div>
+  <div class="section-title">30 заголовков-триггеров</div>
+  <div class="section-desc">Нажми на заголовок — скопируется в буфер. Фильтруй по формату.</div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterHeadlines('all', this)">Все 30</button>
+    <button class="filter-btn" onclick="filterHeadlines('reels', this)">🎬 Reels</button>
+    <button class="filter-btn" onclick="filterHeadlines('carousel', this)">📱 Карусели</button>
+    <button class="filter-btn" onclick="filterHeadlines('stories', this)">⭕ Stories</button>
+  </div>
+
+  <div class="headlines" id="headlines-list">
+    <div class="headline-row" data-type="reels"><span class="hn">01</span><span class="ht">Почему дорогая ракетка может убить твою игру (если не знать одну вещь)</span><span class="htag tag-r">Reels</span><button class="copy-icon" onclick="copyText(this,'Почему дорогая ракетка может убить твою игру (если не знать одну вещь)')">⎘</button></div>
+    <div class="headline-row" data-type="reels"><span class="hn">02</span><span class="ht">7 признаков, что твоя ракетка тебя тормозит — и ты не догадываешься</span><span class="htag tag-r">Reels</span><button class="copy-icon" onclick="copyText(this,'7 признаков, что твоя ракетка тебя тормозит — и ты не догадываешься')">⎘</button></div>
+    <div class="headline-row" data-type="reels"><span class="hn">03</span><span class="ht">Парадокс: чем легче ракетка — тем мощнее удар</span><span class="htag tag-r">Reels</span><button class="copy-icon" onclick="copyText(this,'Парадокс: чем легче ракетка — тем мощнее удар')">⎘</button></div>
+    <div class="headline-row" data-type="reels"><span class="hn">04</span><span class="ht">Мой локоть болел 2 месяца. Причина оказалась не в технике</span><span class="htag tag-r">Reels</span><button class="copy-icon" onclick="copyText(this,'Мой локоть болел 2 месяца. Причина оказалась не в технике')">⎘</button></div>
+    <div class="headline-row" data-type="reels"><span class="hn">05</span><span class="ht">3 характеристики ракетки, которые твой тренер никогда не объяснит</span><span class="htag tag-r">Reels</span><button class="copy-icon" onclick="copyText(this,'3 характеристики ракетки, которые твой тренер никогда не объяснит')">⎘</button></div>
+    <div class="headline-row" data-type="reels"><span class="hn">06</span><span class="ht">Почему 80% игроков берут не ту жёсткость — и проигрывают из-за этого</span><span class="htag tag-r">Reels</span><button class="copy-icon" onclick="copyText(this,'Почему 80% игроков берут не ту жёсткость — и проигрывают из-за этого')">⎘</button></div>
+    <div class="headline-row" data-type="reels"><span class="hn">07</span><span class="ht">Ты уже хороший игрок. Твой инвентарь об этом знает?</span><span class="htag tag-r">Reels</span><button class="copy-icon" onclick="copyText(this,'Ты уже хороший игрок. Твой инвентарь об этом знает?')">⎘</button></div>
+    <div class="headline-row" data-type="reels"><span class="hn">08</span><span class="ht">Контроль vs мощь. Тебе не нужно выбирать</span><span class="htag tag-r">Reels</span><button class="copy-icon" onclick="copyText(this,'Контроль vs мощь. Тебе не нужно выбирать')">⎘</button></div>
+    <div class="headline-row" data-type="reels"><span class="hn">09</span><span class="ht">Твоя ракетка устаёт раньше тебя. И ты этого не замечаешь</span><span class="htag tag-r">Reels</span><button class="copy-icon" onclick="copyText(this,'Твоя ракетка устаёт раньше тебя. И ты этого не замечаешь')">⎘</button></div>
+    <div class="headline-row" data-type="reels"><span class="hn">10</span><span class="ht">Я вышел на корт с новой ракеткой. Соперник заметил до первого удара</span><span class="htag tag-r">Reels</span><button class="copy-icon" onclick="copyText(this,'Я вышел на корт с новой ракеткой. Соперник заметил до первого удара')">⎘</button></div>
+
+    <div class="headline-row" data-type="carousel"><span class="hn">11</span><span class="ht">7 признаков, что ракетка тебя тормозит — и ты не догадываешься</span><span class="htag tag-k">Карусель</span><button class="copy-icon" onclick="copyText(this,'7 признаков, что ракетка тебя тормозит — и ты не догадываешься')">⎘</button></div>
+    <div class="headline-row" data-type="carousel"><span class="hn">12</span><span class="ht">3 характеристики, которые твой тренер никогда не объяснит</span><span class="htag tag-k">Карусель</span><button class="copy-icon" onclick="copyText(this,'3 характеристики, которые твой тренер никогда не объяснит')">⎘</button></div>
+    <div class="headline-row" data-type="carousel"><span class="hn">13</span><span class="ht">Почему баланс важнее веса — и об этом никто не говорит</span><span class="htag tag-k">Карусель</span><button class="copy-icon" onclick="copyText(this,'Почему баланс важнее веса — и об этом никто не говорит')">⎘</button></div>
+    <div class="headline-row" data-type="carousel"><span class="hn">14</span><span class="ht">5 вещей, которые меняются в твоей игре после правильной ракетки</span><span class="htag tag-k">Карусель</span><button class="copy-icon" onclick="copyText(this,'5 вещей, которые меняются в твоей игре после правильной ракетки')">⎘</button></div>
+    <div class="headline-row" data-type="carousel"><span class="hn">15</span><span class="ht">Подделка или оригинал — 6 признаков, которые видны сразу</span><span class="htag tag-k">Карусель</span><button class="copy-icon" onclick="copyText(this,'Подделка или оригинал — 6 признаков, которые видны сразу')">⎘</button></div>
+    <div class="headline-row" data-type="carousel"><span class="hn">16</span><span class="ht">Идеальная ракетка для новичка vs профи — в чём настоящая разница</span><span class="htag tag-k">Карусель</span><button class="copy-icon" onclick="copyText(this,'Идеальная ракетка для новичка vs профи — в чём настоящая разница')">⎘</button></div>
+    <div class="headline-row" data-type="carousel"><span class="hn">17</span><span class="ht">Когда пора менять ракетку — и большинство отвечает неправильно</span><span class="htag tag-k">Карусель</span><button class="copy-icon" onclick="copyText(this,'Когда пора менять ракетку — и большинство отвечает неправильно')">⎘</button></div>
+    <div class="headline-row" data-type="carousel"><span class="hn">18</span><span class="ht">Сколько ударов живёт струна — и почему это меняет всю игру</span><span class="htag tag-k">Карусель</span><button class="copy-icon" onclick="copyText(this,'Сколько ударов живёт струна — и почему это меняет всю игру')">⎘</button></div>
+    <div class="headline-row" data-type="carousel"><span class="hn">19</span><span class="ht">4 момента в матче, где ракетка решает всё (а не техника)</span><span class="htag tag-k">Карусель</span><button class="copy-icon" onclick="copyText(this,'4 момента в матче, где ракетка решает всё (а не техника)')">⎘</button></div>
+    <div class="headline-row" data-type="carousel"><span class="hn">20</span><span class="ht">Как выбрать ракетку без тренера, без демо и без риска ошибиться</span><span class="htag tag-k">Карусель</span><button class="copy-icon" onclick="copyText(this,'Как выбрать ракетку без тренера, без демо и без риска ошибиться')">⎘</button></div>
+
+    <div class="headline-row" data-type="stories"><span class="hn">21</span><span class="ht">Почему дорогая ракетка может убить игру (если не знать одну вещь)</span><span class="htag tag-s">Stories</span><button class="copy-icon" onclick="copyText(this,'Почему дорогая ракетка может убить игру (если не знать одну вещь)')">⎘</button></div>
+    <div class="headline-row" data-type="stories"><span class="hn">22</span><span class="ht">Почему 80% берут не ту жёсткость — и проигрывают из-за этого</span><span class="htag tag-s">Stories</span><button class="copy-icon" onclick="copyText(this,'Почему 80% берут не ту жёсткость — и проигрывают из-за этого')">⎘</button></div>
+    <div class="headline-row" data-type="stories"><span class="hn">23</span><span class="ht">Разница между ракеткой за 5000 и 15000 — она меньше, чем ты думаешь</span><span class="htag tag-s">Stories</span><button class="copy-icon" onclick="copyText(this,'Разница между ракеткой за 5000 и 15000 — она меньше, чем ты думаешь')">⎘</button></div>
+    <div class="headline-row" data-type="stories"><span class="hn">24</span><span class="ht">Как я покупал «не ту» ракетку 3 раза подряд — и что понял в итоге</span><span class="htag tag-s">Stories</span><button class="copy-icon" onclick="copyText(this,'Как я покупал «не ту» ракетку 3 раза подряд — и что понял в итоге')">⎘</button></div>
+    <div class="headline-row" data-type="stories"><span class="hn">25</span><span class="ht">Почему «попробую демо в клубе» — это ловушка</span><span class="htag tag-s">Stories</span><button class="copy-icon" onclick="copyText(this,'Почему «попробую демо в клубе» — это ловушка')">⎘</button></div>
+    <div class="headline-row" data-type="stories"><span class="hn">26</span><span class="ht">Один параметр ракетки, который я игнорировал 2 года. Зря</span><span class="htag tag-s">Stories</span><button class="copy-icon" onclick="copyText(this,'Один параметр ракетки, который я игнорировал 2 года. Зря')">⎘</button></div>
+    <div class="headline-row" data-type="stories"><span class="hn">27</span><span class="ht">Ощущение «это моя ракетка» — оно реально существует. Как его найти</span><span class="htag tag-s">Stories</span><button class="copy-icon" onclick="copyText(this,'Ощущение «это моя ракетка» — оно реально существует. Как его найти')">⎘</button></div>
+    <div class="headline-row" data-type="stories"><span class="hn">28</span><span class="ht">Почему «подожду распродажу» стоит тебе прогресса каждую неделю</span><span class="htag tag-s">Stories</span><button class="copy-icon" onclick="copyText(this,'Почему «подожду распродажу» стоит тебе прогресса каждую неделю')">⎘</button></div>
+    <div class="headline-row" data-type="stories"><span class="hn">29</span><span class="ht">3 типа игроков в сквош. Только один покупает правильно</span><span class="htag tag-s">Stories</span><button class="copy-icon" onclick="copyText(this,'3 типа игроков в сквош. Только один покупает правильно')">⎘</button></div>
+    <div class="headline-row" data-type="stories"><span class="hn">30</span><span class="ht">Что происходит с твоей рукой через 60 минут игры не той ракеткой</span><span class="htag tag-s">Stories</span><button class="copy-icon" onclick="copyText(this,'Что происходит с твоей рукой через 60 минут игры не той ракеткой')">⎘</button></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- SECTION 3: CONTENT PLAN -->
+<div class="section fi" id="plan">
+  <div class="section-label">Шаг 3</div>
+  <div class="section-title">Контент-план на месяц</div>
+  <div class="section-desc">30 постов, разбитых по форматам: охват, экспертность, прогрев.</div>
+
+  <div class="table-wrap">
+    <table>
+      <colgroup>
+        <col class="c-num"><col class="c-title"><col class="c-fmt"><col class="c-task">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Заголовок</th>
+          <th>Формат</th>
+          <th>Задача</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="t-num">01</td><td>Парадокс: чем легче ракетка — тем мощнее удар</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">02</td><td>Ты не проигрываешь. Ты просто играешь не тем</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">03</td><td>Контроль vs мощь. Тебе не нужно выбирать</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">04</td><td>Мой локоть болел 2 месяца. Причина — не техника</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">05</td><td>Почему профи PSA не играют ракеткой, которую рекламируют</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">06</td><td>Ты уже хороший игрок. Твой инвентарь об этом знает?</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">07</td><td>Я вышел на корт. Соперник заметил меня до первого удара</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">08</td><td>Почему «проблема в технике» — отговорка, которая стоит побед</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">09</td><td>9 из 10 игроков не знают свой баланс ракетки прямо сейчас</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">10</td><td>Твоя ракетка устаёт раньше тебя. И ты не замечаешь</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr class="expandable" onclick="toggleRow(this,'expand-11')"><td class="t-num">11</td><td><div class="t-title">7 признаков, что ракетка тебя тормозит — и ты не догадываешься<span class="t-arrow">▾</span></div></td><td><span class="htag tag-k">Карусель</span></td><td>Сохранения</td></tr>
+        <tr class="expand-row" id="expand-11"><td colspan="4"><div class="expand-inner"><div class="slides">
+          <div class="slide slide-0"><div class="slide-idx">Слайд 1 · ХУК</div><div class="slide-body">Ты тренируешься. Берёшь уроки. Смотришь разборы.<br><br>А результат топчется на месте.<br><br>Возможно, проблема не в тебе.<br><br><strong>7 признаков, что виновата ракетка.</strong></div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 2</div><div class="slide-label">Признак 1</div><div class="slide-body"><strong>После игры болит запястье или локоть</strong>Это не усталость. Ракетка гасит вибрацию туда, где не надо.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 3</div><div class="slide-label">Признак 2</div><div class="slide-body"><strong>Не хватает силы в ударе — хотя бьёшь «в полную»</strong>Неправильный баланс крадёт мощь. Ты компенсируешь мышцами. Путь к травме.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 4</div><div class="slide-label">Признак 3</div><div class="slide-body"><strong>На точных ударах мяч уходит чуть в сторону</strong>Слишком жёсткая или мягкая струна. Контроль исчезает.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 5</div><div class="slide-label">Признак 4</div><div class="slide-body"><strong>Рука устаёт раньше, чем кончается дыхание</strong>Тяжёлая ракетка с головным балансом. Мышцы работают за двоих.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 6</div><div class="slide-label">Признак 5</div><div class="slide-body"><strong>Постоянно перехватываешь grip во время игры</strong>Рукоятка не той толщины. Мозг ищет комфорт — и отвлекается от матча.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 7</div><div class="slide-label">Признак 6</div><div class="slide-body"><strong>Дроп-шоты не идут — хотя технически всё правильно</strong>Жёсткая рама не даёт чувства мяча. Нужна другая гибкость.</div></div>
+          <div class="slide slide-cta"><div class="slide-idx">Слайд 8 · CTA</div><div class="slide-body"><strong>Признак 7: ты не знаешь характеристики своей ракетки</strong>Значит, не знаешь, что мешает расти.<br><br>Напиши модель в комментарии — разберём вместе.</div></div>
+        </div>
+        <div class="caption-block">
+          <div class="caption-header">
+            <span class="caption-label">Описание к посту</span>
+            <button class="caption-copy" onclick="copyCaption(this)">Скопировать ⎘</button>
+          </div>
+          <div class="caption-text">Ты делаешь всё правильно. А результат стоит на месте.
+
+Листай — и проверь, не виновата ли ракетка.
+
+Многие узнают себя в 3-4 пункте. Сохрани, чтобы не потерять 👇
+
+#сквош #squash #ракетка #сквошракетка #squashracket #тренировка #спорт #squashplayer #squashlife #инвентарь #сквошклуб</div>
+        </div>
+        </div></td></tr>
+
+        <tr class="expandable" onclick="toggleRow(this,'expand-12')"><td class="t-num">12</td><td><div class="t-title">3 характеристики, которые твой тренер никогда не объяснит<span class="t-arrow">▾</span></div></td><td><span class="htag tag-k">Карусель</span></td><td>Сохранения</td></tr>
+        <tr class="expand-row" id="expand-12"><td colspan="4"><div class="expand-inner"><div class="slides">
+          <div class="slide slide-0"><div class="slide-idx">Слайд 1 · ХУК</div><div class="slide-body">Тренер учит технике.<br>Он не продавец инвентаря.<br><br>Но есть 3 параметра ракетки, от которых зависит прогресс.<br><br><strong>О них почти никто не говорит.</strong></div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 2</div><div class="slide-label">Параметр 1</div><div class="slide-body"><strong>Точка баланса</strong>Head-heavy — мощь, но меньше контроля.<br>Head-light — точность, скорость, меньше нагрузка на руку.<br><br>Большинство берут красивую ракетку. И не знают, что взяли.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 3</div><div class="slide-label">Параметр 2</div><div class="slide-body"><strong>Жёсткость рамы</strong>Жёсткая — мощный удар, но рука принимает всю вибрацию.<br>Гибкая — контроль, комфорт, чувство мяча.<br><br>Для любителей жёсткая рама — частая причина теннисного локтя.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 4</div><div class="slide-label">Параметр 3</div><div class="slide-body"><strong>Натяжение струн</strong>Высокое — точность, но меньше мощи.<br>Низкое — мощь, но мяч «плавает».<br><br>Цифра на упаковке — просто рекомендация. Не твой идеал.</div></div>
+          <div class="slide slide-cta"><div class="slide-idx">Слайд 5 · CTA</div><div class="slide-body">Три параметра. Ни один не виден глазу.<br>Все три влияют на твою игру каждый матч.<br><br><strong>Сохрани пост — и проверь свою ракетку сегодня.</strong></div></div>
+        </div>
+        <div class="caption-block">
+          <div class="caption-header">
+            <span class="caption-label">Описание к посту</span>
+            <button class="caption-copy" onclick="copyCaption(this)">Скопировать ⎘</button>
+          </div>
+          <div class="caption-text">Тренер учит, как двигаться. Но никто не учит, как выбрать ракетку.
+
+3 параметра, которые реально влияют на игру — и о которых молчат в большинстве клубов.
+
+Листай и сохрани себе перед следующей покупкой 👇
+
+#сквош #squash #ракетка #выборракетки #squashracket #сквошист #squashcoach #спортивныйинвентарь #сквошклуб</div>
+        </div>
+        </div></td></tr>
+
+        <tr class="expandable" onclick="toggleRow(this,'expand-13')"><td class="t-num">13</td><td><div class="t-title">Почему баланс важнее веса — и об этом никто не говорит<span class="t-arrow">▾</span></div></td><td><span class="htag tag-k">Карусель</span></td><td>Сохранения</td></tr>
+        <tr class="expand-row" id="expand-13"><td colspan="4"><div class="expand-inner"><div class="slides">
+          <div class="slide slide-0"><div class="slide-idx">Слайд 1 · ХУК</div><div class="slide-body">Все смотрят на вес ракетки.<br>135 грамм. 140. 125.<br><br>Но вес — это не то, что ты чувствуешь в игре.<br><br><strong>Баланс — вот что реально решает.</strong></div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 2</div><div class="slide-label">Что такое баланс?</div><div class="slide-body">Это где сосредоточена масса ракетки.<br><br>В голове — удар тяжёлый и мощный.<br>В рукоятке — лёгкая и маневренная.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 3</div><div class="slide-label">Head-heavy</div><div class="slide-body">+ Мощный удар без усилий<br>+ Для силовых игроков<br><br>— Рука устаёт быстрее<br>— Сложнее реагировать у стенки</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 4</div><div class="slide-label">Head-light</div><div class="slide-body">+ Молниеносная реакция<br>+ Меньше нагрузка на локоть<br>+ Идеал для игроков с техникой<br><br>— Мощь нужно генерировать самому</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 5</div><div class="slide-label">Тест прямо сейчас</div><div class="slide-body">Положи ракетку на палец посередине рукоятки.<br><br>Нос перевешивает → head-heavy<br>Хвост → head-light<br>Держится ровно → even balance</div></div>
+          <div class="slide slide-cta"><div class="slide-idx">Слайд 6 · CTA</div><div class="slide-body">Теперь ты знаешь, что у тебя в руках.<br><br>Если баланс не совпадает со стилем — это объясняет многое.<br><br><strong>Напиши в комментах, что получилось. Помогу разобраться.</strong></div></div>
+        </div>
+        <div class="caption-block">
+          <div class="caption-header">
+            <span class="caption-label">Описание к посту</span>
+            <button class="caption-copy" onclick="copyCaption(this)">Скопировать ⎘</button>
+          </div>
+          <div class="caption-text">Все смотрят на граммы. Никто не смотрит на баланс.
+
+А именно баланс определяет: устаёт ли рука, хватает ли мощи и насколько быстра ракетка в острых углах.
+
+Проверь свою прямо сейчас — инструкция на последнем слайде 👆
+
+#сквош #squash #ракетка #баланс #squashracket #сквошclub #squashlife #теннислоктя #спорт #сквошракетка</div>
+        </div>
+        </div></td></tr>
+        <tr><td class="t-num">14</td><td>5 вещей, которые меняются после правильной ракетки</td><td><span class="htag tag-k">Карусель</span></td><td>Сохранения</td></tr>
+        <tr><td class="t-num">15</td><td>Подделка или оригинал — 6 признаков, которые видны сразу</td><td><span class="htag tag-k">Карусель</span></td><td>Сохранения</td></tr>
+        <tr><td class="t-num">16</td><td>Ракетка для новичка vs профи — в чём настоящая разница</td><td><span class="htag tag-k">Карусель</span></td><td>Сохранения</td></tr>
+        <tr><td class="t-num">17</td><td>Когда пора менять ракетку — и большинство отвечает неправильно</td><td><span class="htag tag-k">Карусель</span></td><td>Сохранения</td></tr>
+        <tr><td class="t-num">18</td><td>Сколько ударов живёт струна — и почему это меняет всю игру</td><td><span class="htag tag-k">Карусель</span></td><td>Сохранения</td></tr>
+        <tr><td class="t-num">19</td><td>4 момента в матче, где ракетка решает всё (а не техника)</td><td><span class="htag tag-k">Карусель</span></td><td>Сохранения</td></tr>
+        <tr><td class="t-num">20</td><td>Как выбрать ракетку без тренера, без демо и без риска</td><td><span class="htag tag-k">Карусель</span></td><td>Сохранения</td></tr>
+        <tr><td class="t-num">21</td><td>Почему дорогая ракетка может убить игру (если не знать одну вещь)</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">22</td><td>Почему 80% берут не ту жёсткость — и проигрывают из-за этого</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">23</td><td>Разница между ракеткой за 5000 и 15000 — меньше, чем кажется</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">24</td><td>Как я покупал не ту ракетку 3 раза подряд — и что понял</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">25</td><td>Почему «попробую демо в клубе» — это ловушка</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">26</td><td>Один параметр, который я игнорировал 2 года. Зря</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">27</td><td>Ощущение «это моя ракетка» — оно реально существует</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">28</td><td>Почему «подожду распродажу» стоит тебе прогресса каждую неделю</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">29</td><td>3 типа игроков в сквош. Только один покупает правильно</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">30</td><td>Что происходит с рукой через 60 минут игры не той ракеткой</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- REMOVED SECTION 4 — carousels now inline in table above -->
+<!-- CAROUSEL 1 LEGACY (hidden) --><div style="display:none">
+  <div class="carousel-block">
+    <button class="carousel-trigger" onclick="toggleCarousel(this)">
+      <div class="ct-left">
+        <div class="carousel-heading">7 признаков, что ракетка тебя тормозит — и ты не догадываешься</div>
+        <div class="carousel-sub">8 слайдов · диагностика проблем с инвентарем</div>
+      </div>
+      <div class="ct-arrow">▾</div>
+    </button>
+    <div class="carousel-body">
+    <div class="slides">
+      <div class="slide slide-0">
+        <div class="slide-idx">Слайд 1 · ХУК</div>
+        <div class="slide-body">Ты тренируешься. Берёшь уроки. Смотришь разборы.<br><br>А результат топчется на месте.<br><br>Возможно, проблема не в тебе.<br><br><strong>7 признаков, что виновата ракетка.</strong></div>
+      </div>
+      <div class="slide slide-n">
+        <div class="slide-idx">Слайд 2</div>
+        <div class="slide-label">Признак 1</div>
+        <div class="slide-body"><strong>После игры болит запястье или локоть</strong>Это не усталость. Ракетка гасит вибрацию туда, где не надо.</div>
+      </div>
+      <div class="slide slide-n">
+        <div class="slide-idx">Слайд 3</div>
+        <div class="slide-label">Признак 2</div>
+        <div class="slide-body"><strong>Не хватает силы в ударе — хотя бьёшь «в полную»</strong>Неправильный баланс крадёт мощь. Ты компенсируешь мышцами. Это путь к травме.</div>
+      </div>
+      <div class="slide slide-n">
+        <div class="slide-idx">Слайд 4</div>
+        <div class="slide-label">Признак 3</div>
+        <div class="slide-body"><strong>На точных ударах мяч уходит чуть в сторону</strong>Слишком жёсткая или мягкая струна. Контроль исчезает.</div>
+      </div>
+      <div class="slide slide-n">
+        <div class="slide-idx">Слайд 5</div>
+        <div class="slide-label">Признак 4</div>
+        <div class="slide-body"><strong>Рука устаёт раньше, чем кончается дыхание</strong>Тяжёлая ракетка с головным балансом. Мышцы работают за двоих.</div>
+      </div>
+      <div class="slide slide-n">
+        <div class="slide-idx">Слайд 6</div>
+        <div class="slide-label">Признак 5</div>
+        <div class="slide-body"><strong>Постоянно перехватываешь grip во время игры</strong>Рукоятка не той толщины. Мозг ищет комфорт — и отвлекается от матча.</div>
+      </div>
+      <div class="slide slide-n">
+        <div class="slide-idx">Слайд 7</div>
+        <div class="slide-label">Признак 6</div>
+        <div class="slide-body"><strong>Дроп-шоты не идут — хотя технически всё правильно</strong>Жёсткая рама не даёт чувства мяча. Нужна другая гибкость.</div>
+      </div>
+      <div class="slide slide-cta">
+        <div class="slide-idx">Слайд 8 · CTA</div>
+        <div class="slide-body"><strong>Признак 7: ты не знаешь характеристики своей ракетки</strong>Значит, не знаешь, что мешает расти.<br><br>Напиши модель в комментарии — разберём вместе.</div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <!-- CAROUSEL 2 -->
+  <div class="carousel-block">
+    <button class="carousel-trigger" onclick="toggleCarousel(this)">
+      <div class="ct-left">
+        <div class="carousel-heading">3 характеристики, которые твой тренер никогда не объяснит</div>
+        <div class="carousel-sub">5 слайдов · экспертность и технические параметры</div>
+      </div>
+      <div class="ct-arrow">▾</div>
+    </button>
+    <div class="carousel-body">
+    <div class="slides">
+      <div class="slide slide-0">
+        <div class="slide-idx">Слайд 1 · ХУК</div>
+        <div class="slide-body">Тренер учит технике.<br>Он не продавец инвентаря.<br><br>Но есть 3 параметра ракетки, от которых зависит прогресс.<br><br><strong>О них почти никто не говорит.</strong></div>
+      </div>
+      <div class="slide slide-n">
+        <div class="slide-idx">Слайд 2</div>
+        <div class="slide-label">Параметр 1</div>
+        <div class="slide-body"><strong>Точка баланса</strong>Head-heavy — мощь, но меньше контроля.<br>Head-light — точность, скорость, меньше нагрузка на руку.<br><br>Большинство берут красивую ракетку. И не знают, что взяли.</div>
+      </div>
+      <div class="slide slide-n">
+        <div class="slide-idx">Слайд 3</div>
+        <div class="slide-label">Параметр 2</div>
+        <div class="slide-body"><strong>Жёсткость рамы</strong>Жёсткая — мощный удар, но рука принимает всю вибрацию.<br>Гибкая — контроль, комфорт, чувство мяча.<br><br>Для любителей жёсткая рама — частая причина теннисного локтя.</div>
+      </div>
+      <div class="slide slide-n">
+        <div class="slide-idx">Слайд 4</div>
+        <div class="slide-label">Параметр 3</div>
+        <div class="slide-body"><strong>Натяжение струн</strong>Высокое — точность, но меньше мощи.<br>Низкое — мощь, но мяч «плавает».<br><br>Цифра на упаковке — просто рекомендация. Не твой идеал.</div>
+      </div>
+      <div class="slide slide-cta">
+        <div class="slide-idx">Слайд 5 · CTA</div>
+        <div class="slide-body">Три параметра. Ни один не виден глазу.<br>Все три влияют на твою игру каждый матч.<br><br><strong>Сохрани пост — и проверь свою ракетку сегодня.</strong></div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <!-- CAROUSEL 3 -->
+  <div class="carousel-block">
+    <button class="carousel-trigger" onclick="toggleCarousel(this)">
+      <div class="ct-left">
+        <div class="carousel-heading">Почему баланс важнее веса — и об этом никто не говорит</div>
+        <div class="carousel-sub">6 слайдов · баланс ракетки — практика и тест</div>
+      </div>
+      <div class="ct-arrow">▾</div>
+    </button>
+    <div class="carousel-body">
+    <div class="slides">
+      <div class="slide slide-0">
+        <div class="slide-idx">Слайд 1 · ХУК</div>
+        <div class="slide-body">Все смотрят на вес ракетки.<br>135 грамм. 140. 125.<br><br>Но вес — это не то, что ты чувствуешь в игре.<br><br><strong>Баланс — вот что реально решает.</strong></div>
+      </div>
+      <div class="slide slide-n">
+        <div class="slide-idx">Слайд 2</div>
+        <div class="slide-label">Что такое баланс?</div>
+        <div class="slide-body">Это где сосредоточена масса ракетки.<br><br>В голове — удар тяжёлый и мощный.<br>В рукоятке — лёгкая и маневренная.</div>
+      </div>
+      <div class="slide slide-n">
+        <div class="slide-idx">Слайд 3</div>
+        <div class="slide-label">Head-heavy</div>
+        <div class="slide-body">+ Мощный удар без усилий<br>+ Для силовых, медленных игроков<br><br>— Рука устаёт быстрее<br>— Сложнее реагировать у стенки</div>
+      </div>
+      <div class="slide slide-n">
+        <div class="slide-idx">Слайд 4</div>
+        <div class="slide-label">Head-light</div>
+        <div class="slide-body">+ Молниеносная реакция<br>+ Меньше нагрузка на локоть<br>+ Идеал для игроков с техникой<br><br>— Мощь нужно генерировать самому</div>
+      </div>
+      <div class="slide slide-n">
+        <div class="slide-idx">Слайд 5</div>
+        <div class="slide-label">Тест прямо сейчас</div>
+        <div class="slide-body">Положи ракетку на палец посередине рукоятки.<br><br>Нос перевешивает → head-heavy<br>Хвост перевешивает → head-light<br>Держится ровно → even balance</div>
+      </div>
+      <div class="slide slide-cta">
+        <div class="slide-idx">Слайд 6 · CTA</div>
+        <div class="slide-body">Теперь ты знаешь, что у тебя в руках.<br><br>Если баланс не совпадает со стилем игры — это объясняет многое.<br><br><strong>Напиши в комментах, что получилось. Помогу разобраться.</strong></div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div></div>
+
+<footer>
+  Создано с помощью <strong>Claude</strong> по системе из 4 шагов ·
+  Аудитория → Заголовки → Форматы → Контент
+</footer>
+
+<div class="toast" id="toast">Скопировано ✓</div>
+
+<script>
+// COPY CAPTION
+function copyCaption(btn) {
+  const text = btn.closest('.caption-block').querySelector('.caption-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  });
+}
+
+// TABLE ROW ACCORDION
+function toggleRow(tr, expandId) {
+  const expRow = document.getElementById(expandId);
+  const isOpen = tr.classList.contains('open');
+  document.querySelectorAll('tr.expandable.open').forEach(r => r.classList.remove('open'));
+  document.querySelectorAll('tr.expand-row.open').forEach(r => r.classList.remove('open'));
+  if (!isOpen) { tr.classList.add('open'); expRow.classList.add('open'); }
+}
+
+// CAROUSEL ACCORDION (kept for legacy)
+function toggleCarousel(btn) {
+  const block = btn.closest('.carousel-block');
+  const isOpen = block.classList.contains('open');
+  document.querySelectorAll('.carousel-block.open').forEach(b => b.classList.remove('open'));
+  if (!isOpen) block.classList.add('open');
+}
+
+// TABS
+function switchTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// FILTER HEADLINES
+function filterHeadlines(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.headline-row').forEach(row => {
+    if (type === 'all' || row.dataset.type === type) {
+      row.classList.remove('hidden');
+    } else {
+      row.classList.add('hidden');
+    }
+  });
+}
+
+// COPY
+function copyText(btn, text) {
+  event.stopPropagation();
+  navigator.clipboard.writeText(text).then(() => {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  });
+}
+
+// FADE IN ON SCROLL
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
+}, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
