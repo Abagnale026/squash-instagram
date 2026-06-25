@@ -220,6 +220,17 @@ footer strong{color:var(--accent)}
 .headline-row-b:hover{border-color:rgba(184,245,76,.4);background:var(--bg3)}
 .headline-row-b.hidden{display:none}
 
+/* FORMA ALIASES */
+.tab-fo{padding:10px 22px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.tab-fo.active,.tab-fo:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+.tab-panel-fo{display:none}
+.tab-panel-fo.active{display:block;animation:fadeUp .3s ease}
+.filter-btn-fo{padding:8px 18px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.filter-btn-fo.active,.filter-btn-fo:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+.headline-row-fo{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:16px;transition:all .2s}
+.headline-row-fo:hover{border-color:rgba(184,245,76,.4);background:var(--bg3)}
+.headline-row-fo.hidden{display:none}
+
 /* CLOTHING PLACEHOLDER */
 .placeholder{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:40px}
 .placeholder-icon{font-size:56px;opacity:.3}
@@ -233,6 +244,7 @@ footer strong{color:var(--accent)}
 <div class="cat-bar">
   <button class="cat-tab active" onclick="switchCat('squash',this)">🎾 Сквош ракетки</button>
   <button class="cat-tab" onclick="switchCat('badminton',this)">🏸 Бадминтон ракетки</button>
+  <button class="cat-tab" onclick="switchCat('forma',this)">🎽 Спортивная форма</button>
   <button class="cat-tab" onclick="switchCat('odezhda',this)">👕 Своя одежда</button>
 </div>
 
@@ -883,6 +895,246 @@ footer strong{color:var(--accent)}
 
 </div><!-- /page-badminton -->
 
+<!-- FORMA PAGE -->
+<div class="cat-page" id="page-forma">
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">🎽 Форма × Instagram</div>
+    <ul class="nav-links">
+      <li><a href="#fo-audience">Аудитория</a></li>
+      <li><a href="#fo-headlines">Заголовки</a></li>
+      <li><a href="#fo-plan">Контент-план</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="badge"><span class="badge-dot"></span>Instagram-система</div>
+  <h1>Контент-машина для<br><span class="green">спортивной формы</span></h1>
+  <p>Полная система: от болей аудитории до готовых текстов каруселей. 4 шага — месяц контента.</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">30</div><div class="stat-l">болей аудитории</div></div>
+    <div class="stat"><div class="stat-n">30</div><div class="stat-l">заголовков-триггеров</div></div>
+    <div class="stat"><div class="stat-n">30</div><div class="stat-l">постов в плане</div></div>
+    <div class="stat"><div class="stat-n">3</div><div class="stat-l">готовых карусели</div></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section" id="fo-audience">
+  <div class="section-label">Шаг 1</div>
+  <div class="section-title">Оцифровка аудитории</div>
+  <div class="section-desc">Родители детей-спортсменов и тренеры — их страхи, желания и возражения перед заказом формы для команды.</div>
+  <div class="tabs">
+    <button class="tab-fo active" onclick="switchTabFo('fo-tab-fears',this)">😰 10 Страхов</button>
+    <button class="tab-fo" onclick="switchTabFo('fo-tab-desires',this)">🔥 10 Желаний</button>
+    <button class="tab-fo" onclick="switchTabFo('fo-tab-objections',this)">🤔 10 Возражений</button>
+  </div>
+  <div class="tab-panel-fo active" id="fo-tab-fears">
+    <div class="grid3">
+      <div class="card"><div class="card-num">1</div><div class="card-text">Форма вылиняет после 2-3 стирок — деньги потрачены, а команда выходит на турнир в выцветшем</div></div>
+      <div class="card"><div class="card-num">2</div><div class="card-text">Размерная сетка подведёт — закажу на всю команду, а половине не подойдёт</div></div>
+      <div class="card"><div class="card-num">3</div><div class="card-text">Ткань окажется дешёвой: жаркая, неудобная — ребёнок думает об одежде, а не об игре</div></div>
+      <div class="card"><div class="card-num">4</div><div class="card-text">Форма порвётся прямо на соревнованиях — позор перед другими командами и судьями</div></div>
+      <div class="card"><div class="card-num">5</div><div class="card-text">Логотип и цвета клуба напечатают неточно — будет выглядеть несерьёзно и дёшево</div></div>
+      <div class="card"><div class="card-num">6</div><div class="card-text">Срок изготовления затянется — форма не придёт к важному турниру</div></div>
+      <div class="card"><div class="card-num">7</div><div class="card-text">Минимальный тираж слишком большой — у нас маленькая команда, нам столько не надо</div></div>
+      <div class="card"><div class="card-num">8</div><div class="card-text">После нескольких тренировок форма вытянется и поплывёт — будет висеть мешком</div></div>
+      <div class="card"><div class="card-num">9</div><div class="card-text">Запах пота не выводится даже после стирки — дети стесняются, родители в шоке</div></div>
+      <div class="card"><div class="card-num">10</div><div class="card-text">На картинке одно — в реальности другое. Особенно страшно при заказе на всю команду</div></div>
+    </div>
+  </div>
+  <div class="tab-panel-fo" id="fo-tab-desires">
+    <div class="grid3">
+      <div class="card"><div class="card-num">1</div><div class="card-text">Форма как у настоящих сборных — команда выходит на поле и уже выигрывает взглядом</div></div>
+      <div class="card"><div class="card-num">2</div><div class="card-text">Ткань, которая дышит и не натирает — ребёнок думает об игре, а не об одежде</div></div>
+      <div class="card"><div class="card-num">3</div><div class="card-text">Логотип и цвета клуба переданы идеально — гордость тренера, восхищение родителей</div></div>
+      <div class="card"><div class="card-num">4</div><div class="card-text">Единый стиль на всю команду: все одинаковые, красивые — командный дух виден сразу</div></div>
+      <div class="card"><div class="card-num">5</div><div class="card-text">Форма живёт 2 сезона: не вытягивается, не садится, не линяет после стирок</div></div>
+      <div class="card"><div class="card-num">6</div><div class="card-text">Быстро и без головной боли: оформил заказ сегодня — через неделю всё готово</div></div>
+      <div class="card"><div class="card-num">7</div><div class="card-text">Любое количество комплектов — хоть 5, хоть 50, без огромной минималки</div></div>
+      <div class="card"><div class="card-num">8</div><div class="card-text">Имя игрока и номер на форме — каждый ребёнок чувствует себя настоящим спортсменом</div></div>
+      <div class="card"><div class="card-num">9</div><div class="card-text">Всё в одном заказе: футболки + шорты + юбки, один поставщик, одна доставка</div></div>
+      <div class="card"><div class="card-num">10</div><div class="card-text">Форма настолько крутая, что дети хотят носить её не только на тренировках</div></div>
+    </div>
+  </div>
+  <div class="tab-panel-fo" id="fo-tab-objections">
+    <div class="grid3">
+      <div class="card"><div class="card-num">1</div><div class="card-text">«Сначала хочу посмотреть образцы — не готов заказывать вслепую на всю команду» (страх масштабной ошибки)</div></div>
+      <div class="card"><div class="card-num">2</div><div class="card-text">«Слишком дорого — в Спортмастере дешевле» (не учитывает персонализацию и реальное качество)</div></div>
+      <div class="card"><div class="card-num">3</div><div class="card-text">«У нас маленькая команда — боюсь что минималка большая» (не знает реальный порог)</div></div>
+      <div class="card"><div class="card-num">4</div><div class="card-text">«Мы уже работаем с другим поставщиком» (привычка, а не реальная удовлетворённость)</div></div>
+      <div class="card"><div class="card-num">5</div><div class="card-text">«Долго ждать — у нас турнир через 3 недели» (не знает реальные сроки производства)</div></div>
+      <div class="card"><div class="card-num">6</div><div class="card-text">«Родители скинутся и купят в магазине — зачем заморачиваться?» (не видит разницы в статусе)</div></div>
+      <div class="card"><div class="card-num">7</div><div class="card-text">«Нужно согласовать с руководством клуба» (откладывание решения, а не реальный барьер)</div></div>
+      <div class="card"><div class="card-num">8</div><div class="card-text">«Не понимаю как правильно снять мерки с детей» (техническое препятствие на 5 минут)</div></div>
+      <div class="card"><div class="card-num">9</div><div class="card-text">«Боюсь что после первой стирки логотип облезет» (закрывается объяснением про сублимацию)</div></div>
+      <div class="card"><div class="card-num">10</div><div class="card-text">«У нас сложный дизайн — вдруг с логотипом не получится» (переоценивает сложность процесса)</div></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section" id="fo-headlines">
+  <div class="section-label">Шаг 2</div>
+  <div class="section-title">30 заголовков-триггеров</div>
+  <div class="section-desc">Дерзкие заголовки, которые бьют точно в нерв — без рекламного тона, с интригой и цифрами.</div>
+  <div class="filter-bar">
+    <button class="filter-btn-fo active" onclick="filterForma('all',this)">Все</button>
+    <button class="filter-btn-fo" onclick="filterForma('reels',this)">Reels</button>
+    <button class="filter-btn-fo" onclick="filterForma('carousel',this)">Карусель</button>
+    <button class="filter-btn-fo" onclick="filterForma('stories',this)">Stories</button>
+  </div>
+  <div class="headlines">
+    <div class="headline-row-fo" data-type="reels"><span class="hn">01</span><span class="ht">Команда вышла на поле. Соперники замолчали — ещё до свистка</span><span class="htag tag-r">Reels</span></div>
+    <div class="headline-row-fo" data-type="carousel"><span class="hn">02</span><span class="ht">5 признаков, что форма вашей команды вас подводит — и вы не замечаете</span><span class="htag tag-k">Карусель</span></div>
+    <div class="headline-row-fo" data-type="stories"><span class="hn">03</span><span class="ht">Мы привезли форму за час до турнира. Вот как это было</span><span class="htag tag-s">Stories</span></div>
+    <div class="headline-row-fo" data-type="reels"><span class="hn">04</span><span class="ht">Почему форма из магазина убивает командный дух — и никто об этом не говорит</span><span class="htag tag-r">Reels</span></div>
+    <div class="headline-row-fo" data-type="carousel"><span class="hn">05</span><span class="ht">Ткань решает всё: 4 характеристики, на которые смотрят профессиональные клубы</span><span class="htag tag-k">Карусель</span></div>
+    <div class="headline-row-fo" data-type="stories"><span class="hn">06</span><span class="ht">Сколько реально стоит одеть команду из 15 человек — считаем честно</span><span class="htag tag-s">Stories</span></div>
+    <div class="headline-row-fo" data-type="reels"><span class="hn">07</span><span class="ht">Ваш ребёнок тренируется в том, что не даёт ему выступать на 100%</span><span class="htag tag-r">Reels</span></div>
+    <div class="headline-row-fo" data-type="carousel"><span class="hn">08</span><span class="ht">3 вида спортивной формы — и большинство команд берут не тот</span><span class="htag tag-k">Карусель</span></div>
+    <div class="headline-row-fo" data-type="stories"><span class="hn">09</span><span class="ht">Мамы трёх команд сравнили форму после сезона. Вот что они сказали</span><span class="htag tag-s">Stories</span></div>
+    <div class="headline-row-fo" data-type="reels"><span class="hn">10</span><span class="ht">3 вещи которые форма делает с командой. О последней никто не догадывается</span><span class="htag tag-r">Reels</span></div>
+    <div class="headline-row-fo" data-type="carousel"><span class="hn">11</span><span class="ht">Как заказать форму на команду и не облажаться: пошаговый разбор</span><span class="htag tag-k">Карусель</span></div>
+    <div class="headline-row-fo" data-type="stories"><span class="hn">12</span><span class="ht">Почему я больше не покупаю форму в «Спортмастере» — личный опыт тренера</span><span class="htag tag-s">Stories</span></div>
+    <div class="headline-row-fo" data-type="reels"><span class="hn">13</span><span class="ht">Тренер показал фото двух команд. Угадайте, какая выиграла турнир</span><span class="htag tag-r">Reels</span></div>
+    <div class="headline-row-fo" data-type="carousel"><span class="hn">14</span><span class="ht">Сублимация vs принт: что выбрать — и почему ответ удивит большинство тренеров</span><span class="htag tag-k">Карусель</span></div>
+    <div class="headline-row-fo" data-type="stories"><span class="hn">15</span><span class="ht">Один вопрос, который тренер должен задать перед заказом формы</span><span class="htag tag-s">Stories</span></div>
+    <div class="headline-row-fo" data-type="reels"><span class="hn">16</span><span class="ht">Парадокс: чем дешевле форма — тем дороже она обходится за сезон</span><span class="htag tag-r">Reels</span></div>
+    <div class="headline-row-fo" data-type="carousel"><span class="hn">17</span><span class="ht">Почему дети играют лучше в правильной форме — объясняет спортивная психология</span><span class="htag tag-k">Карусель</span></div>
+    <div class="headline-row-fo" data-type="stories"><span class="hn">18</span><span class="ht">Ребёнок отказывался надевать форму. Вот почему — и как мы это исправили</span><span class="htag tag-s">Stories</span></div>
+    <div class="headline-row-fo" data-type="reels"><span class="hn">19</span><span class="ht">Я не верил, что форма влияет на результат. Пока не увидел это сам</span><span class="htag tag-r">Reels</span></div>
+    <div class="headline-row-fo" data-type="carousel"><span class="hn">20</span><span class="ht">Как одеть сборную из 12 человек разных размеров и не сойти с ума</span><span class="htag tag-k">Карусель</span></div>
+    <div class="headline-row-fo" data-type="stories"><span class="hn">21</span><span class="ht">За кулисами: как на форму наносится логотип клуба — с нуля до финала</span><span class="htag tag-s">Stories</span></div>
+    <div class="headline-row-fo" data-type="reels"><span class="hn">22</span><span class="ht">Почему профессиональные клубы не покупают форму в спортмаге</span><span class="htag tag-r">Reels</span></div>
+    <div class="headline-row-fo" data-type="carousel"><span class="hn">23</span><span class="ht">Разбираем реальный заказ: от идеи до выхода на поле за 10 дней</span><span class="htag tag-k">Карусель</span></div>
+    <div class="headline-row-fo" data-type="stories"><span class="hn">24</span><span class="ht">Самый частый вопрос: «А можно заказать только 5 комплектов?»</span><span class="htag tag-s">Stories</span></div>
+    <div class="headline-row-fo" data-type="reels"><span class="hn">25</span><span class="ht">До турнира 2 недели. Вот что надо было сделать ещё 3 недели назад</span><span class="htag tag-r">Reels</span></div>
+    <div class="headline-row-fo" data-type="carousel"><span class="hn">26</span><span class="ht">6 ошибок при заказе командной формы, которые стоят денег и нервов</span><span class="htag tag-k">Карусель</span></div>
+    <div class="headline-row-fo" data-type="stories"><span class="hn">27</span><span class="ht">Форма пришла не та. История клиента — и как мы это решили</span><span class="htag tag-s">Stories</span></div>
+    <div class="headline-row-fo" data-type="reels"><span class="hn">28</span><span class="ht">Форма порвалась прямо на соревнованиях. История одного тренера</span><span class="htag tag-r">Reels</span></div>
+    <div class="headline-row-fo" data-type="carousel"><span class="hn">29</span><span class="ht">Форма за 500₽ vs за 1500₽ за комплект — честное сравнение</span><span class="htag tag-k">Карусель</span></div>
+    <div class="headline-row-fo" data-type="stories"><span class="hn">30</span><span class="ht">Почему единая форма превращает группу детей в настоящую команду</span><span class="htag tag-s">Stories</span></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section" id="fo-plan">
+  <div class="section-label">Шаг 3</div>
+  <div class="section-title">Контент-план на месяц</div>
+  <div class="section-desc">30 постов, разбитых по форматам: охват, экспертность, прогрев.</div>
+  <div class="table-wrap">
+    <table>
+      <colgroup><col class="c-num"><col class="c-title"><col class="c-fmt"><col class="c-task"></colgroup>
+      <thead><tr><th>#</th><th>Заголовок</th><th>Формат</th><th>Задача</th></tr></thead>
+      <tbody>
+        <tr><td class="t-num">01</td><td>Команда вышла на поле. Соперники замолчали ещё до свистка</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr class="expandable" onclick="toggleRow(this,'fo-exp-02')"><td class="t-num">02</td><td><div class="t-title">5 признаков, что форма вашей команды вас подводит<span class="t-arrow">▾</span></div></td><td><span class="htag tag-k">Карусель</span></td><td>Доверие</td></tr>
+        <tr class="expand-row" id="fo-exp-02"><td colspan="4"><div class="expand-inner"><div class="slides">
+          <div class="slide slide-0"><div class="slide-idx">Слайд 1 · ОБЛОЖКА</div><div class="slide-body"><strong>5 признаков, что форма вашей команды вас подводит</strong><br>и вы не замечаете</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 2</div><div class="slide-label">Признак 1</div><div class="slide-body"><strong>После 2-3 стирок цвет тускнеет</strong><br>Форма выглядит «уставшей» ещё до середины сезона. На турнире команда выходит в выцветшем — и это видно всем.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 3</div><div class="slide-label">Признак 2</div><div class="slide-body"><strong>Дети постоянно поправляют форму во время игры</strong><br>Неправильный крой, плохая резинка — игрок отвлекается. Думает об одежде, а не о мяче.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 4</div><div class="slide-label">Признак 3</div><div class="slide-body"><strong>После тренировки форма пахнет — даже после стирки</strong><br>Дешёвый полиэстер держит запах намертво. Дети стесняются. Родители в шоке. Тренер молчит.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 5</div><div class="slide-label">Признак 4</div><div class="slide-body"><strong>На турнире ваша команда выглядит скромнее соперников</strong><br>Профессиональные команды знают: форма — это первое впечатление. Ваша тоже что-то говорит о себе.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 6</div><div class="slide-label">Признак 5</div><div class="slide-body"><strong>Логотип клуба трескается или облезает</strong><br>Печатный принт живёт 10-15 стирок. Сублимация — весь срок жизни ткани. Это не одно и то же.</div></div>
+          <div class="slide slide-cta"><div class="slide-idx">Слайд 7 · CTA</div><div class="slide-body"><strong>Узнали себя в 2+ пунктах?</strong><br>Значит, пора поговорить о форме.<br><br>Напишите «ФОРМА» в директ — разберём что не так и как исправить.</div></div>
+        </div>
+        <div class="caption-block">
+          <div class="caption-header"><span class="caption-label">Описание к посту</span><button class="caption-copy" onclick="copyCaption(this)">Скопировать ⎘</button></div>
+          <div class="caption-text">Проверьте свою команду по этим 5 пунктам. Честно.
+
+Большинство тренеров и родителей не замечают, что форма их подводит. Списывают на результат, настрой, погоду. А проблема — в том, что на команде надето.
+
+Сохраните пост и покажите другому тренеру — пусть тоже проверит.
+
+Если узнали себя в 2+ пунктах — напишите «ФОРМА» в директ. Разберём и поможем.
+
+#спортивнаяформа #командаформа #детскийспорт #тренер #спортклуб #формадляспорта #сборная</div>
+        </div>
+        </div></td></tr>
+        <tr><td class="t-num">03</td><td>Мы привезли форму за час до турнира. Вот как это было</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">04</td><td>Почему форма из магазина убивает командный дух</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr class="expandable" onclick="toggleRow(this,'fo-exp-05')"><td class="t-num">05</td><td><div class="t-title">Ткань решает всё: 4 характеристики профессиональных клубов<span class="t-arrow">▾</span></div></td><td><span class="htag tag-k">Карусель</span></td><td>Доверие</td></tr>
+        <tr class="expand-row" id="fo-exp-05"><td colspan="4"><div class="expand-inner"><div class="slides">
+          <div class="slide slide-0"><div class="slide-idx">Слайд 1 · ОБЛОЖКА</div><div class="slide-body"><strong>Ткань решает всё</strong><br>4 характеристики, на которые смотрят профессиональные клубы<br><em>и о которых молчат в магазинах</em></div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 2</div><div class="slide-label">#1 — Состав ткани</div><div class="slide-body">100% полиэстер vs смеси с хлопком.<br><br>Хлопок впитывает пот и тяжелеет. Форма становится мокрой, холодной, тяжёлой.<br><br>Правильный спортивный полиэстер — отводит влагу, остаётся лёгким. Ребёнок играет, а не несёт на себе мокрую тряпку.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 3</div><div class="slide-label">#2 — Воздухопроницаемость</div><div class="slide-body">Сетчатые вставки под мышками и на спине.<br><br>Без них ребёнок перегревается уже в первом тайме.<br><br>С ними — температура тела в норме, концентрация не падает. Разница особенно заметна на длинных турнирах.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 4</div><div class="slide-label">#3 — Тип нанесения логотипа</div><div class="slide-body">Принт: трескается после 15 стирок. Выглядит дёшево с первого сезона.<br><br>Сублимация: краска вплавляется в волокна ткани. Живёт весь срок формы — без трещин, без облезания.<br><br>Для командной формы — только сублимация.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 5</div><div class="slide-label">#4 — Усиленные швы</div><div class="slide-body">На детской форме самое уязвимое место — швы.<br><br>Двойная строчка + проклейка на стрессовых точках (плечи, шаговый шов).<br><br>Форма не разойдётся в самый важный момент — финале турнира.</div></div>
+          <div class="slide slide-cta"><div class="slide-idx">Слайд 6 · CTA</div><div class="slide-body"><strong>Теперь вы знаете то, о чём молчат в магазинах</strong><br><br>Хотите проверить какую ткань используют в вашей нынешней форме?<br><br>Напишите «ОБРАЗЕЦ» в директ — пришлём образцы тканей бесплатно.</div></div>
+        </div>
+        <div class="caption-block">
+          <div class="caption-header"><span class="caption-label">Описание к посту</span><button class="caption-copy" onclick="copyCaption(this)">Скопировать ⎘</button></div>
+          <div class="caption-text">Большинство выбирают форму по цвету и цене.
+
+А потом удивляются, почему она вылиняла, порвалась или воняет после второй тренировки.
+
+Сохраните этот пост перед следующим заказом — он сэкономит деньги и нервы.
+
+Хотите образцы тканей? Напишите «ОБРАЗЕЦ» в директ — отправим бесплатно.
+
+#спортивнаяформа #командаформа #детскийспорт #качествоформы #сублимация #спортклуб #тренер</div>
+        </div>
+        </div></td></tr>
+        <tr><td class="t-num">06</td><td>Сколько реально стоит одеть команду из 15 человек</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">07</td><td>Ваш ребёнок тренируется в том, что не даёт ему выступать на 100%</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr class="expandable" onclick="toggleRow(this,'fo-exp-08')"><td class="t-num">08</td><td><div class="t-title">3 вида спортивной формы — большинство команд берут не тот<span class="t-arrow">▾</span></div></td><td><span class="htag tag-k">Карусель</span></td><td>Доверие</td></tr>
+        <tr class="expand-row" id="fo-exp-08"><td colspan="4"><div class="expand-inner"><div class="slides">
+          <div class="slide slide-0"><div class="slide-idx">Слайд 1 · ОБЛОЖКА</div><div class="slide-body"><strong>3 вида спортивной формы</strong><br>Большинство команд берут не тот</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 2</div><div class="slide-label">Вступление</div><div class="slide-body">Нет «универсальной лучшей формы».<br>Есть форма под задачу.<br><br>Большинство берут одну — и используют для всего. Это как ехать на турнир и тренироваться в одних и тех же кроссовках.<br><br>Вот 3 вида 👇</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 3</div><div class="slide-label">🏋️ Тип 1 — Тренировочная</div><div class="slide-body">Для ежедневных занятий.<br><br>Приоритет: комфорт, долговечность, лёгкая стирка.<br>Логотип + номер. Без лишних деталей.<br><br>Дешевле турнирной на 30-40%.<br>Именно её убивают каждый день — и именно она должна быть попроще.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 4</div><div class="slide-label">🏆 Тип 2 — Турнирная</div><div class="slide-body">Для соревнований.<br><br>Приоритет: внешний вид, единство, эффект присутствия.<br>Сублимация, точные цвета клуба, полный комплект.<br><br>Надевают только на важные выезды и турниры.<br>Берегут. Стирают бережно. Она — лицо клуба.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 5</div><div class="slide-label">📸 Тип 3 — Представительская</div><div class="slide-body">Для фото, награждений, официальных выездов.<br><br>Поло или джемпер с логотипом клуба.<br>Команда выглядит профессионально даже вне поля.<br><br>Про этот вид часто забывают — а зря.<br>Именно его видят на фото в соцсетях и на сайте клуба.</div></div>
+          <div class="slide slide-n"><div class="slide-idx">Слайд 6</div><div class="slide-label">Самая частая ошибка</div><div class="slide-body">Берут только турнирную — и тренируются в ней каждый день.<br><br>К середине сезона она выглядит как тренировочная.<br>На соревнованиях выходят в потрёпанном виде.<br><br>Решение: тренировочная + турнирная. Это дешевле, чем покупать турнирную дважды.</div></div>
+          <div class="slide slide-cta"><div class="slide-idx">Слайд 7 · CTA</div><div class="slide-body"><strong>Какой вид нужен вашей команде?</strong><br><br>Напишите в комментариях:<br>Тренировочная / Турнирная / Представительская<br><br>Отвечу каждому — помогу разобраться с выбором.</div></div>
+        </div>
+        <div class="caption-block">
+          <div class="caption-header"><span class="caption-label">Описание к посту</span><button class="caption-copy" onclick="copyCaption(this)">Скопировать ⎘</button></div>
+          <div class="caption-text">Нет плохой формы. Есть форма не под ту задачу.
+
+Видел команды с дорогой турнирной формой, которую убивали на каждой тренировке. К финалу сезона выглядели хуже, чем соперники в простой тренировочной.
+
+Пройдите по слайдам, найдите свой вид — напишите в комментариях. Отвечу каждому.
+
+#спортивнаяформа #детскийспорт #тренер #командаформа #спортклуб #турнир #сборная</div>
+        </div>
+        </div></td></tr>
+        <tr><td class="t-num">09</td><td>Мамы трёх команд сравнили форму после сезона</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">10</td><td>3 вещи которые форма делает с командой. О последней не догадываются</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">11</td><td>Как заказать форму на команду и не облажаться</td><td><span class="htag tag-k">Карусель</span></td><td>Доверие</td></tr>
+        <tr><td class="t-num">12</td><td>Почему я больше не покупаю форму в «Спортмастере»</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">13</td><td>Тренер показал фото двух команд. Угадайте, какая выиграла</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">14</td><td>Сублимация vs принт: что выбрать — ответ удивит большинство</td><td><span class="htag tag-k">Карусель</span></td><td>Доверие</td></tr>
+        <tr><td class="t-num">15</td><td>Один вопрос, который тренер должен задать перед заказом</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">16</td><td>Парадокс: чем дешевле форма — тем дороже за сезон</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">17</td><td>Почему дети играют лучше в правильной форме</td><td><span class="htag tag-k">Карусель</span></td><td>Доверие</td></tr>
+        <tr><td class="t-num">18</td><td>Ребёнок отказывался надевать форму. Вот почему и как исправили</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">19</td><td>Я не верил, что форма влияет на результат. Пока не увидел сам</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">20</td><td>Как одеть сборную из 12 человек разных размеров</td><td><span class="htag tag-k">Карусель</span></td><td>Доверие</td></tr>
+        <tr><td class="t-num">21</td><td>За кулисами: как на форму наносится логотип клуба</td><td><span class="htag tag-s">Stories</span></td><td>Прогрев</td></tr>
+        <tr><td class="t-num">22</td><td>Почему профессиональные клубы не покупают форму в спортмаге</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">23</td><td>Разбираем реальный заказ: от идеи до поля за 10 дней</td><td><span class="htag tag-k">Карусель</span></td><td>Доверие</td></tr>
+        <tr><td class="t-num">24</td><td>Самый частый вопрос: «А можно заказать только 5 комплектов?»</td><td><span class="htag tag-s">Stories</span></td><td>Продажа</td></tr>
+        <tr><td class="t-num">25</td><td>До турнира 2 недели. Вот что надо было сделать 3 недели назад</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">26</td><td>6 ошибок при заказе командной формы, которые стоят денег</td><td><span class="htag tag-k">Карусель</span></td><td>Доверие</td></tr>
+        <tr><td class="t-num">27</td><td>Форма пришла не та. История клиента — и как мы это решили</td><td><span class="htag tag-s">Stories</span></td><td>Продажа</td></tr>
+        <tr><td class="t-num">28</td><td>Форма порвалась прямо на соревнованиях. История одного тренера</td><td><span class="htag tag-r">Reels</span></td><td>Охват</td></tr>
+        <tr><td class="t-num">29</td><td>Форма за 500₽ vs за 1500₽ за комплект — честное сравнение</td><td><span class="htag tag-k">Карусель</span></td><td>Продажа</td></tr>
+        <tr><td class="t-num">30</td><td>Почему единая форма превращает группу детей в настоящую команду</td><td><span class="htag tag-s">Stories</span></td><td>Продажа</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer>Создано с помощью <strong>Claude</strong> по системе из 4 шагов · Аудитория → Заголовки → Форматы → Контент</footer>
+
+</div><!-- /page-forma -->
+
 <!-- CLOTHING PAGE -->
 <div class="cat-page" id="page-odezhda">
   <div class="placeholder">
@@ -967,6 +1219,22 @@ function switchTabB(id, btn) {
   document.querySelectorAll('.tab-b').forEach(t => t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
+}
+
+// FORMA TABS
+function switchTabFo(id, btn) {
+  document.querySelectorAll('.tab-panel-fo').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-fo').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+function filterForma(type, btn) {
+  document.querySelectorAll('.filter-btn-fo').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.headline-row-fo').forEach(row => {
+    if (type === 'all' || row.dataset.type === type) row.classList.remove('hidden');
+    else row.classList.add('hidden');
+  });
 }
 
 // BADMINTON FILTER
