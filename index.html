@@ -149,6 +149,58 @@ footer strong{color:var(--accent)}
 /* FADE IN */
 .fi{opacity:1;transform:none}
 
+/* ── MOBILE ───────────────────────────────────────── */
+@media(max-width:768px){
+  /* category bar */
+  .cat-bar{padding:0 10px;gap:4px;height:44px}
+  .cat-tab{padding:6px 12px;font-size:12px}
+
+  /* inner nav */
+  nav{top:44px}
+  .nav-inner{height:52px;padding:0 16px}
+  .nav-links{display:none}
+
+  /* hero */
+  .hero{padding:128px 16px 60px}
+  .hero h1{letter-spacing:-1.5px;margin-bottom:16px}
+  .hero p{font-size:15px;margin-bottom:36px}
+  .stats{gap:24px}
+  .stat-n{font-size:36px}
+
+  /* sections */
+  .section{padding:56px 16px}
+  .section-title{letter-spacing:-0.5px}
+
+  /* audience cards */
+  .grid3{grid-template-columns:1fr}
+
+  /* filter bar */
+  .filter-bar{gap:6px}
+  .filter-btn{padding:7px 14px;font-size:12px}
+
+  /* table: scroll horizontally */
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{min-width:560px}
+  col.c-fmt{width:110px}
+  col.c-task{width:90px}
+  thead th{padding:10px 14px;font-size:10px}
+  tbody td{padding:11px 14px;font-size:13px}
+  .caption-block{margin:0 12px 12px}
+
+  /* carousel slides */
+  .carousel-trigger{padding:16px 18px}
+  .carousel-heading{font-size:15px}
+  .slides{padding:16px 18px}
+  .slide{min-width:200px;max-width:200px;padding:16px 14px}
+  .carousel-block.open .carousel-body{max-height:800px}
+
+  /* expand rows */
+  tr.expand-row.open .expand-inner{max-height:700px}
+
+  /* toast */
+  .toast{bottom:16px;right:16px;left:16px;text-align:center}
+}
+
 /* CATEGORY TABS */
 .cat-bar{position:fixed;top:0;left:0;right:0;z-index:300;background:#080808;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;gap:4px;padding:0 32px;height:48px}
 .cat-tab{padding:8px 20px;border-radius:8px;border:none;background:transparent;color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;letter-spacing:.2px}
